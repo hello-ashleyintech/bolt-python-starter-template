@@ -1,13 +1,13 @@
 from logging import Logger
 
-from slack_bolt import Ack
-from slack_sdk import WebClient
+from slack_bolt.context.ack.async_ack import AsyncAck
+from slack_sdk.web.async_client import AsyncWebClient
 
 
-def sample_shortcut_callback(body: dict, ack: Ack, client: WebClient, logger: Logger):
+async def sample_shortcut_callback(body: dict, ack: AsyncAck, client: AsyncWebClient, logger: Logger):
     try:
-        ack()
-        client.views_open(
+        await ack()
+        await client.views_open(
             trigger_id=body["trigger_id"],
             view={
                 "type": "modal",

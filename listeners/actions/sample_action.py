@@ -1,13 +1,13 @@
 from logging import Logger
 
-from slack_bolt import Ack
-from slack_sdk import WebClient
+from slack_bolt.context.ack.async_ack import AsyncAck
+from slack_sdk.web.async_client import AsyncWebClient
 
 
-def sample_action_callback(ack: Ack, client: WebClient, body: dict, logger: Logger):
+async def sample_action_callback(ack: AsyncAck, client: AsyncWebClient, body: dict, logger: Logger):
     try:
-        ack()
-        client.views_update(
+        await ack()
+        await client.views_update(
             view_id=body["view"]["id"],
             hash=body["view"]["hash"],
             view={

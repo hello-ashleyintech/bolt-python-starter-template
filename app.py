@@ -16,6 +16,12 @@ logging.basicConfig(level=logging.DEBUG)
 register_listeners(app)
 
 
+@app.middleware
+async def log_request(logger, body, next):
+    logger.debug(body)
+    return await next()
+
+
 async def main(app):
     handler = AsyncSocketModeHandler(app, os.environ["SLACK_APP_TOKEN"])
     await handler.start_async()
